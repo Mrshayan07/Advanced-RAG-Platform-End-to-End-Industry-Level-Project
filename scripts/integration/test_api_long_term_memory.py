@@ -21,7 +21,7 @@ import httpx
 # TEST CONFIGURATION
 # =========================================================
 
-TEST_PASSWORD = "LongTermMemoryTest123!"
+TEST_PASSWORD = "LongTermMemoryTest123!"  # pragma: allowlist secret
 
 USER_A_EMAIL = "api_long_term_memory_user_a@test.local"
 USER_B_EMAIL = "api_long_term_memory_user_b@test.local"

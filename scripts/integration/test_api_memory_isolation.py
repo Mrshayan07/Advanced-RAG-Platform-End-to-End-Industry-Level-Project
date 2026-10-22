@@ -20,7 +20,7 @@ from scripts.database_safety import require_test_database
 # TEST CONFIGURATION
 # =========================================================
 
-TEST_PASSWORD = "APIIsolationTest123!"
+TEST_PASSWORD = "APIIsolationTest123!"  # pragma: allowlist secret
 
 USER_A_EMAIL = "api_isolation_user_a@test.local"
 USER_B_EMAIL = "api_isolation_user_b@test.local"
