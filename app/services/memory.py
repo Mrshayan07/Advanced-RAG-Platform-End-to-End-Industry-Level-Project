@@ -38,12 +38,9 @@ class ConversationMemory:
             decode_responses=True,
         )
 
-        self.summary_model = ChatGoogleGenerativeAI(
-            model=settings.gemini_model,
-            google_api_key=settings.gemini_api_key,
-            temperature=0,
-            max_output_tokens=1024,
-        )
+        # Initialize the LLM only when summary generation is requested.
+        # This allows application imports and CI test collection without API keys.
+        self._summary_model: ChatGoogleGenerativeAI | None = None
 
     # =========================================================
     # KEY HELPERS
@@ -246,6 +243,19 @@ class ConversationMemory:
     # =========================================================
     # SUMMARY GENERATION
     # =========================================================
+
+    @property
+    def summary_model(self) -> ChatGoogleGenerativeAI:
+        """Create and cache the summary LLM on first use."""
+        if self._summary_model is None:
+            self._summary_model = ChatGoogleGenerativeAI(
+                model=settings.gemini_model,
+                google_api_key=settings.gemini_api_key,
+                temperature=0,
+                max_output_tokens=1024,
+            )
+
+        return self._summary_model
 
     def _generate_summary(
         self,
