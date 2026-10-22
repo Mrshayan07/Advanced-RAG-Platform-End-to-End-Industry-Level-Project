@@ -1,0 +1,27 @@
+[
+  {
+    "id": "retrieval_001",
+    "question": "What is Shayan Javed's primary professional role?",
+    "ideal_answer": "Shayan Javed is a Full Stack Developer and MERN Stack Developer.",
+    "reference_contexts": [
+      "Shayan Javed\nFull Stack Developer | MERN Stack Developer"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "retrieval_002",
+    "question": "What technologies did Shayan use for frontend development?",
+    "ideal_answer": "Shayan used HTML, CSS, JavaScript, React, Bootstrap, and Tailwind for frontend development.",
+    "reference_contexts": [
+      "Frontend: HTML, CSS, JavaScript, React, Bootstrap, Tailwind"
+    ],
+    "answerable": true
+  },
+  {
+    "id": "retrieval_003",
+    "question": "Does Shayan have experience with Java?",
+    "ideal_answer": "There is no evidence in the provided profile that Shayan has experience with Java.",
+    "reference_contexts": [],
+    "answerable": false
+  }
+]

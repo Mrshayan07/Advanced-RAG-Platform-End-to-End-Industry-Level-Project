@@ -1,0 +1,47 @@
+[project]
+name = "advanced-rag"
+version = "0.1.0"
+description = "Production-grade RAG system using LangChain and LangGraph"
+requires-python = ">=3.12"
+
+dependencies = [
+    "fastapi",
+    "uvicorn[standard]",
+    "pydantic",
+    "pydantic-settings",
+    "python-dotenv",
+
+    "sqlalchemy",
+    "asyncpg",
+    "psycopg[binary]",
+    "alembic",
+
+    "langchain",
+    "langchain-openai",
+    "langchain-community",
+    "langgraph",
+
+    "qdrant-client",
+    "redis",
+    "celery[redis]",
+
+    "python-multipart",
+    "pyjwt",
+    "passlib[bcrypt]",
+    "httpx",
+
+    "deepeval"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "pytest-asyncio",
+    "ruff"
+]
+
+
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"

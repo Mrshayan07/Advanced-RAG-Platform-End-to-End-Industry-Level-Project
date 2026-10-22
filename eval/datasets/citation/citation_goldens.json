@@ -1,0 +1,17 @@
+[
+  {
+    "id": "citation_001",
+    "question": "What is Shayan Javed's primary professional role?",
+    "expected_citations": [1]
+  },
+  {
+    "id": "citation_002",
+    "question": "What technologies did Shayan use for frontend development?",
+    "expected_citations": [1]
+  },
+  {
+    "id": "citation_003",
+    "question": "Does Shayan have experience with Java?",
+    "expected_citations": [1]
+  }
+]

@@ -1,0 +1,200 @@
+[
+  {
+    "id": "qa_001",
+    "question": "What is Shayan Javed's primary professional role?",
+    "ideal_answer": "Shayan Javed is a Full Stack Developer and MERN Stack Developer.",
+    "expected_sources": [
+      "Professional Summary"
+    ],
+    "category": "professional_profile",
+    "answerable": true
+  },
+  {
+    "id": "qa_002",
+    "question": "How long has Shayan Javed been working as a freelance Full Stack Developer?",
+    "ideal_answer": "Shayan Javed has been working as a Freelance Full Stack Developer since January 2023.",
+    "expected_sources": [
+      "Experience"
+    ],
+    "category": "experience",
+    "answerable": true
+  },
+  {
+    "id": "qa_003",
+    "question": "What type of applications has Shayan developed?",
+    "ideal_answer": "Shayan has developed end-to-end web applications, including an e-commerce store, school website, restaurant website, and gym website.",
+    "expected_sources": [
+      "Experience",
+      "Projects"
+    ],
+    "category": "projects",
+    "answerable": true
+  },
+  {
+    "id": "qa_004",
+    "question": "What technologies did Shayan use for frontend development?",
+    "ideal_answer": "Shayan's frontend technologies include HTML, CSS, JavaScript, React, Bootstrap, and Tailwind.",
+    "expected_sources": [
+      "Technical Skills"
+    ],
+    "category": "technical_skills",
+    "answerable": true
+  },
+  {
+    "id": "qa_005",
+    "question": "What backend technologies does Shayan know?",
+    "ideal_answer": "Shayan's backend technologies include Node.js, Express.js, Python, Flask, and Django.",
+    "expected_sources": [
+      "Technical Skills"
+    ],
+    "category": "technical_skills",
+    "answerable": true
+  },
+  {
+    "id": "qa_006",
+    "question": "Which databases does Shayan have experience with?",
+    "ideal_answer": "Shayan has experience with MongoDB, MySQL, and PostgreSQL.",
+    "expected_sources": [
+      "Technical Skills"
+    ],
+    "category": "technical_skills",
+    "answerable": true
+  },
+  {
+    "id": "qa_007",
+    "question": "What tools does Shayan use for development and API testing?",
+    "ideal_answer": "Shayan uses Git, GitHub, VS Code, and Postman.",
+    "expected_sources": [
+      "Technical Skills"
+    ],
+    "category": "tools",
+    "answerable": true
+  },
+  {
+    "id": "qa_008",
+    "question": "What features were included in Shayan's e-commerce project?",
+    "ideal_answer": "The e-commerce store included authentication and an admin dashboard.",
+    "expected_sources": [
+      "Projects"
+    ],
+    "category": "projects",
+    "answerable": true
+  },
+  {
+    "id": "qa_009",
+    "question": "What was the purpose of Shayan's school website?",
+    "ideal_answer": "The school website was built for student registration and management.",
+    "expected_sources": [
+      "Projects"
+    ],
+    "category": "projects",
+    "answerable": true
+  },
+  {
+    "id": "qa_010",
+    "question": "What did Shayan's restaurant website provide?",
+    "ideal_answer": "The restaurant website provided a dynamic menu and contact system.",
+    "expected_sources": [
+      "Projects"
+    ],
+    "category": "projects",
+    "answerable": true
+  },
+  {
+    "id": "qa_011",
+    "question": "What information was showcased on Shayan's gym website?",
+    "ideal_answer": "The gym website showcased membership plans and trainer profiles.",
+    "expected_sources": [
+      "Projects"
+    ],
+    "category": "projects",
+    "answerable": true
+  },
+  {
+    "id": "qa_012",
+    "question": "What university does Shayan Javed attend?",
+    "ideal_answer": "Shayan Javed attends Sindh Madressatul Islam University.",
+    "expected_sources": [
+      "Education"
+    ],
+    "category": "education",
+    "answerable": true
+  },
+  {
+    "id": "qa_013",
+    "question": "What degree is Shayan pursuing?",
+    "ideal_answer": "Shayan is pursuing a BS in Computer Science.",
+    "expected_sources": [
+      "Education"
+    ],
+    "category": "education",
+    "answerable": true
+  },
+  {
+    "id": "qa_014",
+    "question": "Where is Shayan Javed based?",
+    "ideal_answer": "Shayan Javed is based in Karachi, Pakistan.",
+    "expected_sources": [
+      "Contact Information"
+    ],
+    "category": "personal_profile",
+    "answerable": true
+  },
+  {
+    "id": "qa_015",
+    "question": "What languages does Shayan speak?",
+    "ideal_answer": "Shayan speaks English fluently and Urdu natively.",
+    "expected_sources": [
+      "Languages"
+    ],
+    "category": "languages",
+    "answerable": true
+  },
+  {
+    "id": "qa_016",
+    "question": "Does Shayan have experience building RESTful APIs?",
+    "ideal_answer": "Yes. Shayan has experience building RESTful APIs and integrating databases.",
+    "expected_sources": [
+      "Experience"
+    ],
+    "category": "experience",
+    "answerable": true
+  },
+  {
+    "id": "qa_017",
+    "question": "Does Shayan have deployment experience?",
+    "ideal_answer": "Yes. Shayan has experience designing responsive user interfaces and deploying projects.",
+    "expected_sources": [
+      "Professional Summary",
+      "Experience"
+    ],
+    "category": "experience",
+    "answerable": true
+  },
+  {
+    "id": "qa_018",
+    "question": "What technologies are listed in Shayan's project tech stack?",
+    "ideal_answer": "The listed project tech stack includes React, Node.js, Express, MongoDB, HTML, CSS, JavaScript, Python, Flask, and Django.",
+    "expected_sources": [
+      "Projects"
+    ],
+    "category": "technical_skills",
+    "answerable": true
+  },
+  {
+    "id": "qa_019",
+    "question": "Does Shayan have experience with Java?",
+    "ideal_answer": "The provided profile does not mention Java.",
+    "expected_sources": [],
+    "category": "unanswerable",
+    "answerable": false
+  },
+  {
+    "id": "qa_020",
+    "question": "What is Shayan's current salary?",
+    "ideal_answer": "The provided profile does not mention Shayan's current salary.",
+    "expected_sources": [],
+    "category": "unanswerable",
+    "answerable": false
+  }
+]

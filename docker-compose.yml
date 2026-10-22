@@ -1,0 +1,211 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: advanced-rag-postgres
+
+    environment:
+      POSTGRES_DB: ragdb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+
+    ports:
+      - "127.0.0.1:5432:5432"
+
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ragdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+    restart: unless-stopped
+
+  qdrant:
+    image: qdrant/qdrant:latest
+    container_name: advanced-rag-qdrant
+
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "bash",
+          "-c",
+          "echo > /dev/tcp/127.0.0.1/6333"
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: advanced-rag-redis
+
+    command: redis-server --appendonly yes
+
+    volumes:
+      - redis_data:/data
+
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 5s
+
+    restart: unless-stopped
+
+  api:
+    image: advanced-rag-api:latest
+    container_name: advanced-rag-api
+
+    environment:
+      APP_NAME: Advanced RAG Platform
+      APP_ENV: production
+      DEBUG: "false"
+
+      API_HOST: 0.0.0.0
+      API_PORT: 8000
+
+      DATABASE_URL: postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@postgres:5432/ragdb
+
+      QDRANT_URL: http://qdrant:6333
+      QDRANT_API_KEY: ""
+      QDRANT_COLLECTION: documents
+
+      REDIS_URL: redis://redis:6379/0
+
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-120b}
+
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.5-flash-lite}
+
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-small-en-v1.5}
+
+      HF_HOME: /opt/huggingface
+      TRANSFORMERS_CACHE: /opt/huggingface
+      SENTENCE_TRANSFORMERS_HOME: /opt/huggingface/sentence_transformers
+
+      LANGSMITH_TRACING: ${LANGSMITH_TRACING:-true}
+      LANGSMITH_API_KEY: ${LANGSMITH_API_KEY:-}
+      LANGSMITH_PROJECT: ${LANGSMITH_PROJECT:-advanced-rag}
+
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://localhost:5173}
+
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-20}
+      MAX_REQUEST_SIZE_MB: ${MAX_REQUEST_SIZE_MB:-5}
+
+      RETRIEVAL_TOP_K: ${RETRIEVAL_TOP_K:-20}
+      RERANK_TOP_K: ${RERANK_TOP_K:-5}
+      RAG_MAX_ITERATIONS: ${RAG_MAX_ITERATIONS:-2}
+
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+
+    ports:
+      - "8000:8000"
+
+    volumes:
+      - document_storage:/app/storage
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/', timeout=10)"
+        ]
+      interval: 15s
+      timeout: 15s
+      retries: 10
+      start_period: 60s
+
+    restart: unless-stopped
+
+  worker:
+    image: advanced-rag-api:latest
+    container_name: advanced-rag-worker
+
+    command:
+      [
+        "celery",
+        "-A",
+        "app.workers.celery_app:celery_app",
+        "worker",
+        "--loglevel=INFO",
+        "--pool=solo"
+      ]
+
+    environment:
+      APP_NAME: Advanced RAG Platform
+      APP_ENV: production
+      DEBUG: "false"
+
+      DATABASE_URL: postgresql+asyncpg://postgres:${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}@postgres:5432/ragdb
+
+      QDRANT_URL: http://qdrant:6333
+      QDRANT_API_KEY: ""
+      QDRANT_COLLECTION: documents
+
+      REDIS_URL: redis://redis:6379/0
+
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-120b}
+
+      GEMINI_API_KEY: ${GEMINI_API_KEY:-}
+      GEMINI_MODEL: ${GEMINI_MODEL:-gemini-3.5-flash-lite}
+
+      EMBEDDING_MODEL: ${EMBEDDING_MODEL:-BAAI/bge-small-en-v1.5}
+
+      HF_HOME: /opt/huggingface
+      TRANSFORMERS_CACHE: /opt/huggingface
+      SENTENCE_TRANSFORMERS_HOME: /opt/huggingface/sentence_transformers
+
+      LANGSMITH_TRACING: ${LANGSMITH_TRACING:-true}
+      LANGSMITH_API_KEY: ${LANGSMITH_API_KEY:-}
+      LANGSMITH_PROJECT: ${LANGSMITH_PROJECT:-advanced-rag}
+
+      RATE_LIMIT_PER_MINUTE: ${RATE_LIMIT_PER_MINUTE:-20}
+      MAX_REQUEST_SIZE_MB: ${MAX_REQUEST_SIZE_MB:-5}
+
+      RETRIEVAL_TOP_K: ${RETRIEVAL_TOP_K:-20}
+      RERANK_TOP_K: ${RERANK_TOP_K:-5}
+      RAG_MAX_ITERATIONS: ${RAG_MAX_ITERATIONS:-2}
+
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY}
+
+    volumes:
+      - document_storage:/app/storage
+
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+  qdrant_data:
+  redis_data:
+  document_storage:
