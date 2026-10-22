@@ -305,4 +305,4 @@ Evaluation runs may require model-provider credentials or access to external ser
 
 ## License
 
-No license has been specified yet. Add a license file before distributing this project under an open-source license.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for the full license text.
