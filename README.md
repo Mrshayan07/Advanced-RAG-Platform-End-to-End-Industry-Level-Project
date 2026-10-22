@@ -4,6 +4,8 @@ A production-oriented, multi-tenant Retrieval-Augmented Generation (RAG) platfor
 
 The platform provides authenticated document workflows, retrieval-augmented question answering, conversation management, and tenant-aware application services.
 
+[![Advanced RAG CI](https://github.com/Mrshayan07/Advanced-RAG-Platform-End-to-End-Industry-Level-Project/actions/workflows/ci.yml/badge.svg)](https://github.com/Mrshayan07/Advanced-RAG-Platform-End-to-End-Industry-Level-Project/actions/workflows/ci.yml)
+
 ## Features
 
 - **RAG API:** Question-answering endpoints backed by the application's retrieval pipeline.
@@ -37,29 +39,29 @@ Feature availability depends on the configured services, environment variables, 
 
 ## Architecture
 
-```text
-React + Vite frontend
-        |
-        | HTTP / JSON
-        v
-FastAPI application
-        |
-        +--> Authentication and user management
-        |
-        +--> Document ingestion and processing
-        |
-        +--> RAG retrieval and reranking
-        |
-        +--> Conversation and memory services
-        |
-        +--> PostgreSQL
-        |
-        +--> Qdrant
-        |
-        +--> Redis / Celery worker
+```mermaid
+flowchart TD
+    U[User] --> FE[React / Vite Frontend]
+    FE --> API[FastAPI Backend]
+    API --> AUTH[Authentication and Tenant Access]
+    API --> DOC[Document Management]
+    API --> RAG[RAG Query Pipeline]
+    API --> CONV[Conversation and Memory]
+    DOC --> PG[(PostgreSQL)]
+    DOC --> QD[(Qdrant Vector Store)]
+    RAG --> RET[Hybrid Retrieval]
+    RET --> RR[Cross-Encoder Reranking]
+    RR --> LLM[LLM Answer Generation]
+    LLM --> CIT[Citations and Response]
+    RAG --> QD
+    AUTH --> PG
+    CONV --> REDIS[(Redis)]
+    DOC --> TASK[Celery Background Worker]
+    TASK --> REDIS
+    TASK --> PG
 ```
 
-The frontend communicates with the FastAPI backend. PostgreSQL stores relational application data, Qdrant provides vector-search infrastructure, and Redis supports caching and background-task infrastructure.
+The API coordinates authentication, document workflows, retrieval, response generation, and conversation features. PostgreSQL stores relational data, Qdrant supports vector search, and Redis/Celery support background processing.
 
 ## Project Structure
 
@@ -293,9 +295,13 @@ Evaluation runs may require model-provider credentials or access to external ser
 
 ## Current Development Status
 
-This repository contains the backend, frontend, migration history, evaluation utilities, tests, and Docker configuration.
-
-CI/CD automation and deployment infrastructure should be treated as implemented only after their corresponding workflows and infrastructure configurations have been added and validated.
+- Backend API, frontend, database migrations, and automated tests are included.
+- Docker Compose configuration supports the local multi-service setup.
+- GitHub Actions CI is configured for backend tests, frontend checks, and secret scanning.
+- The workflow includes publishing the container image to GitHub Container Registry (GHCR).
+- Local health checks and the CI workflow have been reported as passing during project verification.
+- **Cloud deployment:** AWS/production hosting has not been completed; do not treat this repository as a live hosted service.
+- Before public distribution, review the deployment configuration, environment secrets, and licensing requirements.
 
 ## License
 
